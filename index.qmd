@@ -76,6 +76,137 @@ capacity to extract signal from data
 
 
 
+
+
+
+## modelling and forecasting framework
+
+### data {style="color:#1A003F;"}
+
+- annual country-level time series
+- $\begin{bmatrix} gdp_{c.t} & UR_{c.t} & EPR_{c.t} & LFPR_{c.t} \end{bmatrix}$
+- sampling period 1991-2024
+- 189 countries
+- 34.4% missing observations
+
+
+
+
+## modelling and forecasting framework
+
+### data {style="color:#1A003F;"}
+
+```{r}
+#| label: data
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+library(bpvars)
+
+ligh = "#5A58FF"
+# ligh = "#2A28C4"
+dark = "#1A003F"
+
+C = length(ilo_dynamic_panel)
+id_usa = which(names(ilo_dynamic_panel) == "USA")
+id_pol = which(names(ilo_dynamic_panel) == "POL")
+time_id = zoo::index(ilo_dynamic_panel[[id_usa]])
+var_names = colnames(ilo_dynamic_panel[[id_usa]])
+
+par(
+  mfrow = c(2, 2),
+  mar = c(0.5, 0.5, 0.5, 0.5),
+  oma = c(2, 2, 2, 2)
+)
+for (n in 1:4) {
+  range_i = range(sapply(1:C, \(i)(range(ilo_dynamic_panel[[i]][,n]))))
+  plot.ts(
+    ilo_dynamic_panel[[id_usa]][,n], 
+    ylim = range_i, 
+    col = ligh, 
+    lwd = 0.2,
+    axes = FALSE,
+    ylab = "",
+    xlab = ""
+  )
+  for (i in (1:C)[-id_usa]) {lines(ilo_dynamic_panel[[i]][,n], col = ligh, lwd = 0.2)}
+  lines(ilo_dynamic_panel[[id_pol]][,n], col = dark, lwd = 2)
+  if (n == 1) {
+    text(
+      time_id[3],
+      ilo_dynamic_panel[[id_pol]][34,n],
+      "POL",
+      col = dark
+    )
+  }
+  text(
+    time_id[31],
+    range_i[2] - 0.1 * diff(range_i),
+    var_names[n],
+    col = dark,
+    cex = 2
+  )
+}
+```
+
+
+## modelling and forecasting framework
+
+### missing data {style="color:#1A003F;"}
+
+```{r}
+#| label: missingdata
+#| cache: true
+#| warning: false
+#| message: false
+#| echo: false
+
+
+par(
+  mfrow = c(2, 2),
+  mar = c(0.5, 0.5, 0.5, 0.5),
+  oma = c(2, 2, 2, 2)
+)
+for (n in 1:4) {
+  range_i = range(sapply(1:C, \(i)(range(ilo_dynamic_panel[[i]][,n]))))
+  plot.ts(
+    ilo_dynamic_panel_missing[[id_usa]][,n], 
+    ylim = range_i, 
+    col = ligh, 
+    lwd = 0.2,
+    axes = FALSE,
+    ylab = "",
+    xlab = ""
+  )
+  for (i in (1:C)[-id_usa]) {lines(ilo_dynamic_panel_missing[[i]][,n], col = ligh, lwd = 0.2)}
+  lines(ilo_dynamic_panel_missing[[id_pol]][,n], col = dark, lwd = 2)
+  if (n == 1) {
+    text(
+      time_id[3],
+      ilo_dynamic_panel[[id_pol]][34,n],
+      "POL",
+      col = dark
+    )
+  }
+  text(
+    time_id[31],
+    range_i[2] - 0.1 * diff(range_i),
+    var_names[n],
+    col = dark,
+    cex = 2
+  )
+}
+```
+
+
+
+
+
+
+
+
 ## modelling and forecasting framework
 
 ### modelling features {style="color:#1A003F;"}
@@ -83,8 +214,11 @@ capacity to extract signal from data
 - Bayesian nonstationary variables handling
 - system modelling
 - dynamic approach
-- global–to–local formulation
-- embedded flexibility
+- <span style="color:#1614B1;">country-specific vector autoregression</span>
+- <span style="color:#1614B1;">global vector autoregression for prior mean</span>
+- hierarchical modelling
+- model-coherent missing observation handling
+- parameter grouping
 - parameter estimation risk accountability
 
 
@@ -95,24 +229,12 @@ capacity to extract signal from data
 ### forecasting features {style="color:#1A003F;"}
 
 - original non-stationary variables
-- density forecasting
-- conditional forecasting given $gdp$ projections
+- point and density forecasting
 - forecasting for models with exogenous variables
 - restricted forecasting of rates
-
-
-
-
-
-
-## the model
-
-### Bayesian hierarchical panel VAR {style="color:#1A003F;"}
-
-- country-specific vector autoregression
-- panel modelling: global model for prior mean
-- flexible 3-level hierarchical prior structure
-- density forecasting
+- expanding-window recursive forecasting
+- forecast performance evaluation 
+- forecasting error variance decomposition
 
 
 

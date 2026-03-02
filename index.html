@@ -372,38 +372,54 @@
 </section>
 <section id="modelling-and-forecasting-framework-3" class="slide level2">
 <h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="data">data</h3>
+<ul>
+<li>annual country-level time series</li>
+<li><span class="math inline">\(\begin{bmatrix} gdp_{c.t} &amp; UR_{c.t} &amp; EPR_{c.t} &amp; LFPR_{c.t} \end{bmatrix}\)</span></li>
+<li>sampling period 1991-2024</li>
+<li>189 countries</li>
+<li>34.4% missing observations</li>
+</ul>
+</section>
+<section id="modelling-and-forecasting-framework-4" class="slide level2">
+<h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="data-1">data</h3>
+
+<img data-src="index_files/figure-revealjs/data-1.png" width="960" class="r-stretch"></section>
+<section id="modelling-and-forecasting-framework-5" class="slide level2">
+<h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="missing-data">missing data</h3>
+
+<img data-src="index_files/figure-revealjs/missingdata-1.png" width="960" class="r-stretch"></section>
+<section id="modelling-and-forecasting-framework-6" class="slide level2">
+<h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="modelling-features">modelling features</h3>
 <ul>
 <li>Bayesian nonstationary variables handling</li>
 <li>system modelling</li>
 <li>dynamic approach</li>
-<li>global–to–local formulation</li>
-<li>embedded flexibility</li>
+<li><span style="color:#1614B1;">country-specific vector autoregression</span></li>
+<li><span style="color:#1614B1;">global vector autoregression for prior mean</span></li>
+<li>hierarchical modelling</li>
+<li>model-coherent missing observation handling</li>
+<li>parameter grouping</li>
 <li>parameter estimation risk accountability</li>
 </ul>
 </section>
-<section id="modelling-and-forecasting-framework-4" class="slide level2">
+<section id="modelling-and-forecasting-framework-7" class="slide level2">
 <h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="forecasting-features">forecasting features</h3>
 <ul>
 <li>original non-stationary variables</li>
-<li>density forecasting</li>
-<li>conditional forecasting given <span class="math inline">\(gdp\)</span> projections</li>
+<li>point and density forecasting</li>
 <li>forecasting for models with exogenous variables</li>
 <li>restricted forecasting of rates</li>
+<li>expanding-window recursive forecasting</li>
+<li>forecast performance evaluation</li>
+<li>forecasting error variance decomposition</li>
 </ul>
 </section>
 <section id="the-model" class="slide level2">
-<h2>the model</h2>
-<h3 style="color:#1A003F;" id="bayesian-hierarchical-panel-var">Bayesian hierarchical panel VAR</h3>
-<ul>
-<li>country-specific vector autoregression</li>
-<li>panel modelling: global model for prior mean</li>
-<li>flexible 3-level hierarchical prior structure</li>
-<li>density forecasting</li>
-</ul>
-</section>
-<section id="the-model-1" class="slide level2">
 <h2>the model</h2>
 <h3 style="color:#1A003F;" id="country-specific-vector-autoregression">country-specific vector autoregression</h3>
 <p><span class="math display">\[\begin{align}
@@ -416,7 +432,7 @@
 <li>subscript <span class="math inline">\(c\)</span> is for country, and <span class="math inline">\(t\)</span> is for time</li>
 </ul>
 </section>
-<section id="the-model-2" class="slide level2">
+<section id="the-model-1" class="slide level2">
 <h2>the model</h2>
 <h3 style="color:#1A003F;" id="global-model-for-the-prior-mean">global model for the prior mean</h3>
 <p><span class="math display">\[\begin{align}
@@ -427,7 +443,7 @@
         \boldsymbol\epsilon_{c.t}\mid \mathbf{y}_{c.t-1} &amp; \sim N_4\left(\mathbf{0}_4, \boldsymbol\Sigma\right)
 \end{align}\]</span></p>
 </section>
-<section id="the-model-3" class="slide level2">
+<section id="the-model-2" class="slide level2">
 <h2>the model</h2>
 <h3 style="color:#1A003F;" id="flexible-3-level-hierarchical-prior-structure">flexible 3-level hierarchical prior structure</h3>
 <ul>
@@ -443,7 +459,7 @@
 <li>convenient estimation using the Gibbs sampler</li>
 </ul>
 </section>
-<section id="the-model-4" class="slide level2">
+<section id="the-model-3" class="slide level2">
 <h2>the model</h2>
 <h3 style="color:#1A003F;" id="the-local-global-prior">the local-global prior</h3>
 <p><span class="math display">\[\begin{align}
@@ -457,7 +473,7 @@
 <li><span class="math inline">\(W\)</span> is the Wishart distribution</li>
 </ul>
 </section>
-<section id="the-model-5" class="slide level2">
+<section id="the-model-4" class="slide level2">
 <h2>the model</h2>
 <h3 style="color:#1A003F;" id="hierarchical-prior">hierarchical prior</h3>
 <p><span class="math display">\[\begin{align}
@@ -810,6 +826,44 @@ s &amp;\sim IG2\left(\underline{s}_s, \underline{\nu}_s\right)\\[3ex]
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

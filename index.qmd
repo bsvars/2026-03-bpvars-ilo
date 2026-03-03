@@ -248,7 +248,7 @@ for (n in 1:4) {
 - restricted forecasting of rates
 - expanding-window recursive forecasting
 - forecast performance evaluation 
-- forecasting error variance decomposition
+- forecast error variance decomposition
 
 
 
@@ -260,13 +260,13 @@ for (n in 1:4) {
 
 \begin{align}
 &\\
-		\mathbf{y}_{c.t} &= \begin{bmatrix} gdp_{c.t} & UR_{c.t} & EPR_{c.t} & LFPR_{c.t} \end{bmatrix}'\\[3ex]
 		\mathbf{y}_{c.t} &= \mathbf{A}_{c.1} \mathbf{y}_{c.t-1} + \mathbf{A}_{d.c}\mathbf{x}_{c.t} + \boldsymbol\epsilon_{c.t}\\[1ex]
 		\boldsymbol\epsilon_{c.t}\mid \mathbf{y}_{c.t-1} & \sim N_4\left(\mathbf{0}_4, \boldsymbol\Sigma_c\right)\\[2ex]
 \end{align}		
 		
 - subscript $c$ is for country, and $t$ is for time
-
+- captures country-specific dynamics, uncertainty and heterogeneity
+- parameters $\mathbf{A}_{c.1}$, $\mathbf{A}_{d.c}$ and $\boldsymbol\Sigma_c$ are estimated
 
 
 
@@ -276,33 +276,22 @@ for (n in 1:4) {
 
 ### global model for the prior mean {style="color:#1A003F;"}
 
+- prior expectations are parameters
+
 \begin{align}
-&\\
 		E_\pi\left[\mathbf{A}_{c}\right] &= \mathbf{A}, \qquad \mathbf{A}_{c} = \begin{bmatrix} \mathbf{A}_{c.1} & \mathbf{A}_{d.c} \end{bmatrix}'\\[1ex]
-		E_\pi\left[\boldsymbol\Sigma_c\right] &= \boldsymbol\Sigma\\[3ex]
+		E_\pi\left[\boldsymbol\Sigma_c\right] &= \boldsymbol\Sigma\\
+\end{align}
+		
+- a global model under the prior mean
+
+\begin{align}
 		\mathbf{y}_{c.t} &= \mathbf{A}_{1} \mathbf{y}_{c.t-1} + \mathbf{A}_{d}\mathbf{x}_{c.t} + \boldsymbol\epsilon_{c.t}\\[1ex]
 		\boldsymbol\epsilon_{c.t}\mid \mathbf{y}_{c.t-1} & \sim N_4\left(\mathbf{0}_4, \boldsymbol\Sigma\right)
 \end{align}
-		
 
-
-
-
-## the model
-
-### flexible 3-level hierarchical prior structure {style="color:#1A003F;"}
-
-- estimate country-specific parameters: $\mathbf{A}_c$ and $\mathbf{\Sigma}_c$
-- estimate global parameters: $\mathbf{A}$ and $\mathbf{\Sigma}$
-- estimate other prior means and shrinkage levels
-
-### advantages {style="color:#1A003F;"}
-
-- flexible modelling for various types of data
-- improved forecasting performance
-- robustness to different prior specifications
-- convenient estimation using the Gibbs sampler
-		
+- parameters $\mathbf{A}_{1}$, $\mathbf{A}_{d}$ and $\boldsymbol\Sigma$ are estimated
+- panel data efficiency gains and interpretations
 
 
 
@@ -310,35 +299,17 @@ for (n in 1:4) {
 
 ## the model
 
-### the local-global prior {style="color:#1A003F;"}
+### missing observation handling {style="color:#1A003F;"}
+
+- derived model-coherent joint density of missing observations $\mathbf{y}_{c.m}$ given observed data $\mathbf{y}_{c.o}$ and parameters $\mathbf{A}_{c},\boldsymbol\Sigma_c$
 
 \begin{align}
-&\\
-\mathbf{A}_c, \boldsymbol\Sigma_c | \mathbf{A}, \mathbf{V}, \mathbf{\Sigma}, \nu &\sim MNIW_{K\times N}\left(\mathbf{A}, \mathbf{V}, (N - \nu - 1)\mathbf{\Sigma}, \nu\right)\\[2ex]
-\mathbf{A}', \mathbf{V} \mid m, w, s &\sim MNIW_{N\times K}\left(m\underline{\mathbf{M}}', w\underline{\mathbf{W}}, s\underline{\mathbf{S}}, \underline{\eta}\right)\label{eq:pgA}\\[2ex]
-\mathbf{\Sigma}\mid s &\sim W_{N}\left(s\underline{\mathbf{S}}_\Sigma,\underline{\mu}_\Sigma\right)\\[3ex]
+		p\left(\mathbf{y}_{c.m}\mid \mathbf{y}_{c.o},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
 \end{align}
 		
-- $MNIW$ is the matrix normal-inverse Wishart distribution (see [Woźniak (2016)](https://doi.org/10.1111/1467-8462.12179))
-- $W$ is the Wishart distribution
-
-
-
-
-
-## the model
-
-### hierarchical prior {style="color:#1A003F;"}
-
-\begin{align}
-&\\
-\nu &\sim\exp\left(\underline\lambda\right)\\[1ex]
-m &\sim N\left(\underline{\mu}_m, \underline{\sigma}_m^2\right)\\[1ex]
-w &\sim G\left(\underline{s}_w, \underline{a}_w\right)\\[1ex]
-s &\sim IG2\left(\underline{s}_s, \underline{\nu}_s\right)\\[3ex]
-\end{align}
-		
-- $IG2$ is the inverted gamma 2 distribution
+- based on model's likelihood function
+- sampled like other parameters during estimation
+- parameter estimation and forecasting embed uncertainty about missing observations
 
 
 
@@ -347,59 +318,10 @@ s &\sim IG2\left(\underline{s}_s, \underline{\nu}_s\right)\\[3ex]
 
 
 
-
-## forecasting
-
-### one-period-ahead predictive density {style="color:#1A003F;"}
-
-\begin{align}
-&\\
-		{\color{lig}p\left(\mathbf{y}_{c.t+1}\mid \mathbf{y}_{c.t},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)} & = N_4\left(\mathbf{A}_{c.1} \mathbf{y}_{c.t} + \mathbf{A}_{d.c}\mathbf{x}_{c.t+1}, \boldsymbol\Sigma_c\right)\\[5ex]
-\end{align}
-		
-- is implied by the model
-- is the same as frequentist predictive density
+## the R package [bpvars](https://bsvars.org/bpvars) {background-color="#1614B1"}
 
 
-
-
-
-
-
-## forecasting
-
-### predictive density {style="color:#1A003F;"}
-
-\begin{align}
-		p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1}\mid \mathbf{Y}_{c.t}\right)
-		&= \int p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1},\mathbf{A}_{c},\boldsymbol\Sigma_c\mid \mathbf{Y}_{c.t}\right)d\left(\mathbf{A}_{c},\boldsymbol\Sigma_c\right)\\[1ex]
-		&= \int{\color{lig} p\left(\mathbf{y}_{c.t+h}\mid \mathbf{y}_{c.t+h-1},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)}\\[1ex]
-		&\qquad\times\dots\\[1ex]
-		&\qquad\times {\color{lig}p\left(\mathbf{y}_{c.t+1}\mid \mathbf{y}_{c.t},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)}\\[1ex]
-		&\qquad\times p\left(\mathbf{A}_{c},\boldsymbol\Sigma_c\mid \mathbf{Y}_{c.t}\right)d\left(\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
-\end{align}
-
-- conditional density structure determines the sampling algorithm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## the R package [bpvars](https://github.com/bsvars/bpvars) {background-color="#1614B1"}
-
-
-## the R package [bpvars](https://github.com/bsvars/bpvars)
+## the R package [bpvars](https://bsvars.org/bpvars)
 
 ### features {style="color:#1A003F;"}
 
@@ -409,59 +331,22 @@ s &\sim IG2\left(\underline{s}_s, \underline{\nu}_s\right)\\[3ex]
   - frontier econometric and numerical techniques
   - algorithms written in **C++**
 - extensive documentation
-- up-to standards: ready for publication
-- install the package from the [GitHub repo](https://github.com/bsvars/bpvars)
+- meeting all CRAN standards
+- to install the package run
+```r
+install.packages("bpvars")
 ```
-devtools::install_github("bsvars/bpvars")
-```
+
+
+
+## the R package [bpvars](https://bsvars.org/bpvars)
+
+![](cran.png){.absolute top=100 right=250 width="600"}
+
 
 
 
 <!-- ## the R package [bpvars](https://github.com/bsvars/bpvars) -->
-
-<!-- ![](grph_package.png){.absolute top=100 right=250 width="600"} -->
-
-<!-- ::: footer -->
-<!-- [Forecasting with Bayesian Panel VARs](https://bsvars.org/2025-03-bpvars-ilo/) -->
-<!-- ::: -->
-
-
-
-<!-- ## the R package [bpvars](https://github.com/bsvars/bpvars) -->
-
-<!-- ![](grph_paper.png){.absolute top=100 right=250 width="600"} -->
-
-
-
-
-
-
-
-<!-- ## the R package [bpvars](https://github.com/bsvars/bpvars)  -->
-
-<!-- ### load data {style="color:#1A003F;"} -->
-
-<!-- ```{r} -->
-<!-- #| label: data -->
-<!-- #| cache: true -->
-<!-- #| warning: false -->
-
-<!-- library(bpvars)             # load the package -->
-<!-- data(ilo_dynamic_panel)         # load the data -->
-<!-- ilo_dynamic_panel$COL           # show the data for Colombia -->
-<!-- ``` -->
-
-
-
-
-
-
-
-
-
-
-
-<!-- ## the R package [bpvars](https://github.com/bsvars/bpvars)  -->
 
 <!-- ### specify and estimate the model {style="color:#1A003F;"} -->
 
@@ -473,7 +358,7 @@ devtools::install_github("bsvars/bpvars")
 <!-- spec = specify_bvarPANEL$new(                           # specify the model -->
 <!--   ilo_dynamic_panel,                                    # data -->
 <!--   exogenous = ilo_exogenous_variables,                  # exogenous variables -->
-<!--   stationary = c(FALSE, FALSE, FALSE, TRUE),            # stationarity (determines prior mean) -->
+<!--   stationary = c(FALSE, FALSE, FALSE, FALSE),           # stationarity (determines prior mean) -->
 <!--   type = c("real", "rate", "rate", "rate")              # variable types -->
 <!-- ) -->
 

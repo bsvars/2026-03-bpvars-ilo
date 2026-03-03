@@ -48,6 +48,13 @@ for (n in 1:4) {
     var_names[n],
     col = dark
   )
+  if (n == 3 || n == 4) {
+    axis(
+      1,
+      labels = c(NA, seq(from = 1995, to = 2020, by = 5), NA),
+      at = c(1991, seq(from = 1995, to = 2020, by = 5), 2024),
+    )
+  }
 }
 
 
@@ -86,4 +93,11 @@ for (n in 1:4) {
     var_names[n],
     col = dark
   )
+  if (n == 3 || n == 4) {
+    axis(
+      1,
+      labels = c(NA, seq(from = 1995, to = 2020, by = 5), NA),
+      at = c(1991, seq(from = 1995, to = 2020, by = 5), 2024),
+    )
+  }
 }

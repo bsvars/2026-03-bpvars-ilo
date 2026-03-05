@@ -12,7 +12,7 @@ sshpass -e scp src/*.cpp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/puni
 sshpass -e scp sv*.* twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/
 
 # Download files
-scp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/results/svout.pdf results/
+scp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/results/*_rate.rda reproduction/results/
 
 # working with svar_betel on spartan
 #################################################
@@ -30,11 +30,13 @@ tail -30 *21502197.out
 
 cat *0076_233.out
 rm *.out
-cat bvarPANEL_poos.R
+cat bpvar_bench.R
 cat *spartan_wrap.R
 tail -200 src_cpp/bsvar_sv_ce.cpp
 ls
+ls *.rda
 ls results/
+ls -lh results/e_*.*
 # rm results/*.rda
 exit
 #

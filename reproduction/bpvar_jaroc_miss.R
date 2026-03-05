@@ -1,7 +1,7 @@
 
 library(bpvars)
 
-model = "jaroc_miss"
+model = "jaroc_miss_rate"
 
 S_burn = 1e4
 S      = 1e4
@@ -13,6 +13,7 @@ S      = 1e4
 # a more elaborate model
 spec    = specify_bvarPANEL$new(
   data       = ilo_dynamic_panel,
+  type       = c("real", "rate", "rate", "rate"),
 )
 spec$set_to_Jarocinski()
 
@@ -25,5 +26,5 @@ fore    = forecast(
 
 save(
   post, fore, 
-  file = paste0("bpvar_",model,".rda")
+  file = paste0("results/bpvar_",model,".rda")
 )

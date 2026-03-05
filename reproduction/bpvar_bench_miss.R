@@ -1,7 +1,7 @@
 
 library(bpvars)
 
-model = "bench_miss"
+model = "bench_miss_rate"
 
 S_burn = 1e4
 S      = 1e4
@@ -13,6 +13,7 @@ S      = 1e4
 # a more elaborate model
 spec    = specify_bvarPANEL$new(
   data       = ilo_dynamic_panel_missing,
+  type       = c("real", "rate", "rate", "rate"),
 )
 
 burn    = estimate(spec, S_burn)                # run the burn-in; use at least S = 5000
@@ -24,5 +25,5 @@ fore    = forecast(
 
 save(
   post, fore, 
-  file = paste0("bpvar_",model,".rda")
+  file = paste0("results/bpvar_",model,".rda")
 )

@@ -335,7 +335,6 @@ for (n in 1:4) {
 \end{align}
 		
 - pre-specified or estimated group membership
-- panel data efficiency gains and interpretations
 
 
 

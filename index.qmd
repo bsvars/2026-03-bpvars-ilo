@@ -42,7 +42,7 @@ $$ $$
 
 ##  {background-color="#1614B1"}
 
-[![](bpvars.png)](https://bsvars.org/){.absolute top=30 right=275 width="500"}
+![](bpvars.png){.absolute top=30 right=275 width="500"}
 
 
 

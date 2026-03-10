@@ -1,6 +1,6 @@
 ---
-title: "<span style='font-size: 55px;'>Forecasting labour market outcomes using <br> Bayesian panel vector autoregressions </span>" 
-author: "<span style='color: #1A003F; font-size: 35px;'> <br><br><br><br> by Tomasz Woźniak </span>"
+title: "" 
+author: ""
 email: "tomasz.wozniak@unimelb.edu.au"
 title-slide-attributes:
   data-background-color: "#1614B1"
@@ -15,6 +15,28 @@ format:
 execute: 
   echo: true
 ---
+
+
+
+##  {background-color="#1614B1"}
+
+### Forecasting Labour Market Outcomes Using
+
+### Bayesian Panel Vector Autoregressions
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+### Tomasz Woźniak {style="color:#1A003F;"}
 
 
 

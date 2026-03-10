@@ -1,7 +1,7 @@
 
 library(bpvars)
 
-model = "jaroc_rate_noex"
+model = "jaroc_nora_ex"
 
 S_burn = 1e4
 S      = 1e4
@@ -14,7 +14,7 @@ S      = 1e4
 spec    = specify_bvarPANEL$new(
   data       = ilo_dynamic_panel,
   # type       = c("real", "rate", "rate", "rate"),
-  # exogenous  = ilo_exogenous_variables
+  exogenous  = ilo_exogenous_variables
 )
 spec$set_to_Jarocinski()
 
@@ -23,7 +23,7 @@ post    = estimate(burn, S)                # estimate the model; use at least S 
 fore    = forecast(
   post, 
   horizon = 5,
-  # exogenous = ilo_exogenous_forecasts
+  exogenous = ilo_exogenous_forecasts
 )
 
 save(

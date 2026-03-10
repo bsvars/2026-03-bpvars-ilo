@@ -12,7 +12,7 @@ sshpass -e scp src/*.cpp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/puni
 sshpass -e scp sv*.* twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/
 
 # Download files
-scp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/results/*_rate.rda reproduction/results/
+scp twozniak@spartan.hpc.unimelb.edu.au:/data/projects/punim0093/bpvars/results/*_noex.rda reproduction/results/
 
 # working with svar_betel on spartan
 #################################################
@@ -26,9 +26,9 @@ sbatch bpvar_jaroc_miss.slurm
 
 squeue -u twozniak
 
-tail -30 *21502197.out
+tail -100 *22324960.out
 
-cat *0076_233.out
+cat *22329511.out
 rm *.out
 cat bpvar_bench.R
 cat *spartan_wrap.R

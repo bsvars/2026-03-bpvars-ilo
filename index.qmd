@@ -38,11 +38,9 @@ $$ $$
 
 ### Tomasz Woźniak {style="color:#1A003F;"}
 
+<!-- ##  {background-color="#1614B1"} -->
 
-
-##  {background-color="#1614B1"}
-
-![](bpvars.png){.absolute top=30 right=275 width="500"}
+![](bpvars.png){.absolute top=275 right=75 width="300"}
 
 
 

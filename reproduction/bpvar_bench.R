@@ -1,31 +1,26 @@
 
-library(bpvars)
+library(bpvars)                                   # load the package
+tail(ilo_dynamic_panel$COL, 8)                    # inspect Colombian data
 
-model = "bench_nora_ex"
-
-S_burn = 1e4
-S      = 1e4
-
-# the regular workflow involving 
-# specification, estimation, and forecasting
-########################################
-
-# a more elaborate model
-spec    = specify_bvarPANEL$new(
-  data       = ilo_dynamic_panel,
-  # type       = c("real", "rate", "rate", "rate"),
-  exogenous  = ilo_exogenous_variables
+spec = specify_bvarPANEL$new(                           # specify the model
+  ilo_dynamic_panel,                                    # data
+  exogenous = ilo_exogenous_variables                   # exogenous variables
 )
 
-burn    = estimate(spec, S_burn)                # run the burn-in; use at least S = 5000
-post    = estimate(burn, S)                # estimate the model; use at least S = 10000
-fore    = forecast(
-  post, 
-  horizon = 5,
-  exogenous = ilo_exogenous_forecasts
-)
+burn = estimate(spec, S = 5000, show_progress = FALSE) # run the burn-in
+post = estimate(burn, S = 5000)                        # estimate the model
 
-save(
-  post, fore, 
-  file = paste0("results/bpvar_",model,".rda")
-)
+fore = forecast(                                    # forecast the model
+  post,                                             # estimation output
+  horizon = 5,                                      # forecast horizon
+  exogenous_forecast = ilo_exogenous_forecasts,     # forecasts for exogenous variables
+) 
+plot(fore, "COL", main = "Forecasts for Colombia")  # plot the forecasts
+
+summ = summary(fore, "COL")                       # compute forecast summaries
+summ$variable2                                    # report forecasts for UR
+
+post |>                                              # estimation output
+  compute_variance_decompositions(horizon = 5) |>    # compute variance decompositions
+  plot(which_c = "COL")                              # plot variance decompositions 
+

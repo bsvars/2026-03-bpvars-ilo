@@ -93,7 +93,7 @@ $$ $$
 
 $$ $$
 
-#### This research has been funded by the International Labour Organization.
+#### This research was funded by the International Labour Organization.
 
 #### The [**bpvars**](https://bsvars.org/bpvars) package, vignette, and other outputs are copyrighted by the ILO. 
 

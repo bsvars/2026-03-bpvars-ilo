@@ -216,11 +216,24 @@
 <section id="materials" class="slide level2" data-background-color="#1614B1">
 <h2>Materials</h2>
 <p><span class="math display">\[ \]</span></p>
-<h3 style="color:#1A003F;" id="lecture-slides-as-a-website">Lecture Slides <a href="https://bsvars.org/2026-03-bpvars-ilo/">as a website</a></h3>
+<h3 style="color:#1A003F;" id="presentation-slides-as-a-website">Presentation Slides <a href="https://bsvars.org/2026-03-bpvars-ilo/">as a website</a></h3>
 <h3 style="color:#1A003F;" id="github-repo-to-reproduce-the-slides-and-results">GitHub <a href="https://github.com/bsvars/2026-03-bpvars-ilo">repo</a> to reproduce the slides and results</h3>
 <h3 style="color:#1A003F;" id="bpvars-website-and-cran-profile"><strong>bpvars</strong> <a href="https://bsvars.org/bpvars">website</a> and <a href="https://cran.r-project.org/package=bpvars">CRAN</a> profile</h3>
 <h3 style="color:#1A003F;" id="vignette-tutorial-and-manual"><a href="https://github.com/bsvars/2026-03-bpvars-ilo/blob/5be79db41ba1e6eaa8b5ded34482421c25b4c167/resources/bpvars.pdf">vignette</a>, <a href="https://github.com/bsvars/2026-03-bpvars-ilo/blob/5be79db41ba1e6eaa8b5ded34482421c25b4c167/resources/ilo_tutorial.pdf">tutorial</a> and <a href="https://cloud.r-project.org/web/packages/bpvars/bpvars.pdf">manual</a></h3>
 <h3 style="color:#1A003F;" id="bsvars.org-website"><a href="https://bsvars.org/">bsvars.org</a> website</h3>
+</section>
+<section id="section-1" class="slide level2" data-background-color="#1614B1">
+<h2></h2>
+<p><img data-src="ilo_logo.svg" class="absolute" style="top: 20px; right: 650px; width: 400px; "> <span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<p><span class="math display">\[ \]</span></p>
+<h4 id="this-research-has-been-funded-by-the-international-labour-organization.">This research has been funded by the International Labour Organization.</h4>
+<h4 id="the-bpvars-package-vignette-and-other-outputs-are-copyrighted-by-the-ilo.">The <a href="https://bsvars.org/bpvars"><strong>bpvars</strong></a> package, vignette, and other outputs are copyrighted by the ILO.</h4>
+<h4 id="thank-you">Thank you!</h4>
 </section>
 <section id="modelling-and-forecasting-framework-1" class="slide level2" data-background-color="#1614B1">
 <h2>modelling and forecasting framework</h2>
@@ -243,21 +256,66 @@
 <li>annual country-level time series</li>
 <li><span class="math inline">\(\begin{bmatrix} gdp_{c.t} &amp; UR_{c.t} &amp; EPR_{c.t} &amp; LFPR_{c.t} \end{bmatrix}\)</span></li>
 <li>sampling period 1991-2024</li>
-<li>189 countries</li>
-<li>34.4% missing observations</li>
+<li>189 countries <!-- - 34.4% missing observations --></li>
 </ul>
 </section>
 <section id="modelling-and-forecasting-framework-4" class="slide level2">
 <h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="data-1">data</h3>
 
+<!-- ## modelling and forecasting framework -->
+<!-- ### missing data {style="color:#1A003F;"} -->
+<!-- ```{r} -->
+<!-- #| label: missingdata -->
+<!-- #| cache: true -->
+<!-- #| warning: false -->
+<!-- #| message: false -->
+<!-- #| echo: false -->
+<!-- par( -->
+<!--   mfrow = c(2, 2), -->
+<!--   mar = c(0.5, 0.5, 0.5, 0.5), -->
+<!--   oma = c(2, 2, 2, 2) -->
+<!-- ) -->
+<!-- for (n in 1:4) { -->
+<!--   range_i = range(sapply(1:C, \(i)(range(ilo_dynamic_panel[[i]][,n])))) -->
+<!--   plot.ts( -->
+<!--     ilo_dynamic_panel_missing[[id_usa]][,n],  -->
+<!--     ylim = range_i,  -->
+<!--     col = ligh,  -->
+<!--     lwd = 0.2, -->
+<!--     axes = FALSE, -->
+<!--     ylab = "", -->
+<!--     xlab = "" -->
+<!--   ) -->
+<!--   for (i in (1:C)[-id_usa]) {lines(ilo_dynamic_panel_missing[[i]][,n], col = ligh, lwd = 0.2)} -->
+<!--   lines(ilo_dynamic_panel_missing[[id_pol]][,n], col = dark, lwd = 2) -->
+<!--   if (n == 1) { -->
+<!--     text( -->
+<!--       time_id[4], -->
+<!--       ilo_dynamic_panel[[id_pol]][34,n], -->
+<!--       "COL", -->
+<!--       col = dark, -->
+<!--       cex = 2 -->
+<!--     ) -->
+<!--   } -->
+<!--   text( -->
+<!--     time_id[31], -->
+<!--     range_i[2] - 0.1 * diff(range_i), -->
+<!--     var_names[n], -->
+<!--     col = dark, -->
+<!--     cex = 2 -->
+<!--   ) -->
+<!--   if (n == 3 || n == 4) { -->
+<!--     axis( -->
+<!--       1, -->
+<!--       labels = c(NA, seq(from = 1995, to = 2020, by = 5), NA), -->
+<!--       at = c(1991, seq(from = 1995, to = 2020, by = 5), 2024), -->
+<!--     ) -->
+<!--   } -->
+<!-- } -->
+<!-- ``` -->
 <img data-src="index_files/figure-revealjs/data-1.png" width="960" class="r-stretch"></section>
 <section id="modelling-and-forecasting-framework-5" class="slide level2">
-<h2>modelling and forecasting framework</h2>
-<h3 style="color:#1A003F;" id="missing-data">missing data</h3>
-
-<img data-src="index_files/figure-revealjs/missingdata-1.png" width="960" class="r-stretch"></section>
-<section id="modelling-and-forecasting-framework-6" class="slide level2">
 <h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="modelling-features">modelling features</h3>
 <ul>
@@ -272,22 +330,8 @@
 <li>parameter estimation risk accountability</li>
 </ul>
 </section>
-<section id="modelling-and-forecasting-framework-7" class="slide level2">
+<section id="modelling-and-forecasting-framework-6" class="slide level2">
 <h2>modelling and forecasting framework</h2>
-<h3 style="color:#1A003F;" id="forecasting-features">forecasting features</h3>
-<ul>
-<li>original non-stationary variables</li>
-<li>point and density forecasting</li>
-<li>forecasting for models with exogenous variables</li>
-<li>restricted forecasting of rates</li>
-<li>marginal forecasts of labour market indicators</li>
-<li>expanding-window recursive forecasting</li>
-<li>forecast performance evaluation</li>
-<li>forecast error variance decomposition</li>
-</ul>
-</section>
-<section id="the-model" class="slide level2">
-<h2>the model</h2>
 <h3 style="color:#1A003F;" id="country-specific-vector-autoregression">country-specific vector autoregression</h3>
 <p><span class="math display">\[\begin{align}
 &amp;\\
@@ -300,8 +344,8 @@
 <li>parameters <span class="math inline">\(\mathbf{A}_{c.1}\)</span>, <span class="math inline">\(\mathbf{A}_{d.c}\)</span> and <span class="math inline">\(\boldsymbol\Sigma_c\)</span> are estimated</li>
 </ul>
 </section>
-<section id="the-model-1" class="slide level2">
-<h2>the model</h2>
+<section id="modelling-and-forecasting-framework-7" class="slide level2">
+<h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="global-model-for-the-prior-mean">global model for the prior mean</h3>
 <ul>
 <li>prior expectations are parameters</li>
@@ -322,8 +366,8 @@
 <li>panel data efficiency gains and interpretations</li>
 </ul>
 </section>
-<section id="the-model-2" class="slide level2">
-<h2>the model</h2>
+<section id="modelling-and-forecasting-framework-8" class="slide level2">
+<h2>modelling and forecasting framework</h2>
 <h3 style="color:#1A003F;" id="group-modelling">group modelling</h3>
 <ul>
 <li><p>let each country be assigned to a group <span class="math inline">\(g\in\{1,\dots,G\}\)</span></p></li>
@@ -339,20 +383,68 @@
 <li>pre-specified or estimated group membership</li>
 </ul>
 </section>
-<section id="the-model-3" class="slide level2">
-<h2>the model</h2>
-<h3 style="color:#1A003F;" id="missing-observation-handling">missing observation handling</h3>
+<section id="modelling-and-forecasting-framework-9" class="slide level2">
+<h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="featured-models">featured models</h3>
 <ul>
-<li>derived model-coherent joint density of missing observations <span class="math inline">\(\mathbf{y}_{c.m}\)</span> given observed data <span class="math inline">\(\mathbf{y}_{c.o}\)</span> and parameters <span class="math inline">\(\mathbf{A}_{c},\boldsymbol\Sigma_c\)</span></li>
+<li>country-specific VARs with global prior</li>
+<li>country-specific VARs with global prior by <a href="https://doi.org/10.1002/jae.1082">Jarociński (2010, JAE)</a></li>
+<li>country-grouping VARs with global prior (fixed or estimated groupings)</li>
+<li>country-specific VARs with global prior grouping (fixed or estimated groupings)</li>
+<li>country-specific VARs</li>
 </ul>
+<h3 style="color:#1A003F;" id="featured-model-specifications">featured model specifications</h3>
+<ul>
+<li>VAR lag order modification</li>
+<li>exogenous variables</li>
+<li>constrained forecasting of rates</li>
+<li>prior hyper-parameters adjustment</li>
+<li>global prior mean set to pooled estimator by <a href="https://doi.org/10.1016/0304-4076(89)90036-5">Zellner, Hong (1989, JOE)</a></li>
+</ul>
+</section>
+<section id="modelling-and-forecasting-framework-10" class="slide level2">
+<h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="forecasting-features">forecasting features</h3>
+<ul>
+<li>original non-stationary variables</li>
+<li>point and density forecasting</li>
+<li>forecasting for models with exogenous variables</li>
+<li>restricted forecasting of rates</li>
+<li>marginal forecasts of labour market indicators</li>
+<li>expanding-window recursive forecasting</li>
+<li>forecast performance evaluation</li>
+<li>forecast error variance decomposition</li>
+</ul>
+</section>
+<section id="modelling-and-forecasting-framework-11" class="slide level2">
+<h2>modelling and forecasting framework</h2>
+<h3 style="color:#1A003F;" id="one-period-ahead-conditional-predictive-density">one-period-ahead conditional predictive density</h3>
 <p><span class="math display">\[\begin{align}
-        p\left(\mathbf{y}_{c.m}\mid \mathbf{y}_{c.o},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
+&amp;\\
+        {\color{lig}p\left(\mathbf{y}_{c.t+1}\mid \mathbf{y}_{c.t},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)} &amp; = N_4\left(\mathbf{A}_{c.1} \mathbf{y}_{c.t} + \mathbf{A}_{d.c}\mathbf{x}_{c.t+1}, \boldsymbol\Sigma_c\right)\\[5ex]
 \end{align}\]</span></p>
 <ul>
-<li>based on model’s likelihood function</li>
-<li>sampled like other parameters during estimation</li>
-<li>parameter estimation and forecasting embed uncertainty about missing observations</li>
+<li>implied by the model</li>
+<li>equivalent to the frequentist predictive density</li>
 </ul>
+<h3 style="color:#1A003F;" id="joint-predictive-density">joint predictive density</h3>
+<p><span class="math display">\[\begin{align}
+        p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1}\mid \mathbf{Y}_{c.t}\right)
+        &amp;= \int p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1},\mathbf{A}_{c},\boldsymbol\Sigma_c\mid \mathbf{Y}_{c.t}\right)d\left(\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
+\end{align}\]</span></p>
+<ul>
+<li>accounts for parameter uncertainty</li>
+<li>used to generate forecast summaries</li>
+</ul>
+<!-- ## the model -->
+<!-- ### missing observation handling {style="color:#1A003F;"} -->
+<!-- - derived model-coherent joint density of missing observations $\mathbf{y}_{c.m}$ given observed data $\mathbf{y}_{c.o}$ and parameters $\mathbf{A}_{c},\boldsymbol\Sigma_c$ -->
+<!-- \begin{align} -->
+<!--        p\left(\mathbf{y}_{c.m}\mid \mathbf{y}_{c.o},\mathbf{A}_{c},\boldsymbol\Sigma_c\right) -->
+<!-- \end{align} -->
+<!-- - based on model's likelihood function -->
+<!-- - sampled like other parameters during estimation -->
+<!-- - parameter estimation and forecasting embed uncertainty about missing observations -->
 </section>
 <section id="the-r-package-bpvars-1" class="slide level2" data-background-color="#1614B1">
 <h2>the R package <a href="https://bsvars.org/bpvars">bpvars</a></h2>
@@ -564,7 +656,7 @@ joint 0.71634754 2.27425575</code></pre>
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2" data-background-color="#1614B1">
+<section id="section-2" class="slide level2" data-background-color="#1614B1">
 <h2></h2>
 <p><img data-src="social_ilo.png" class="absolute" style="top: 80px; right: 50px; width: 900px; "></p>
 

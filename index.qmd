@@ -59,7 +59,7 @@ $$ $$
 
 $$ $$
 
-### Lecture Slides [as a website](https://bsvars.org/2026-03-bpvars-ilo/) {style="color:#1A003F;"}
+### Presentation Slides [as a website](https://bsvars.org/2026-03-bpvars-ilo/) {style="color:#1A003F;"}
 
 ### GitHub [repo](https://github.com/bsvars/2026-03-bpvars-ilo) to reproduce the slides and results{style="color:#1A003F;"}
 
@@ -70,6 +70,34 @@ $$ $$
 ### [bsvars.org](https://bsvars.org/) website {style="color:#1A003F;"}
 
 
+
+
+
+
+
+
+##  {background-color="#1614B1"} 
+
+![](ilo_logo.svg){.absolute top=20 right=650 width="400"}
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+$$ $$
+
+#### This research has been funded by the International Labour Organization.
+
+#### The [**bpvars**](https://bsvars.org/bpvars) package, vignette, and other outputs are copyrighted by the ILO. 
+
+#### Thank you!
 
 
 
@@ -105,7 +133,7 @@ capacity to extract signal from data
 - $\begin{bmatrix} gdp_{c.t} & UR_{c.t} & EPR_{c.t} & LFPR_{c.t} \end{bmatrix}$
 - sampling period 1991-2024
 - 189 countries
-- 34.4% missing observations
+<!-- - 34.4% missing observations -->
 
 
 
@@ -178,61 +206,61 @@ for (n in 1:4) {
 ```
 
 
-## modelling and forecasting framework
+<!-- ## modelling and forecasting framework -->
 
-### missing data {style="color:#1A003F;"}
+<!-- ### missing data {style="color:#1A003F;"} -->
 
-```{r}
-#| label: missingdata
-#| cache: true
-#| warning: false
-#| message: false
-#| echo: false
+<!-- ```{r} -->
+<!-- #| label: missingdata -->
+<!-- #| cache: true -->
+<!-- #| warning: false -->
+<!-- #| message: false -->
+<!-- #| echo: false -->
 
 
-par(
-  mfrow = c(2, 2),
-  mar = c(0.5, 0.5, 0.5, 0.5),
-  oma = c(2, 2, 2, 2)
-)
-for (n in 1:4) {
-  range_i = range(sapply(1:C, \(i)(range(ilo_dynamic_panel[[i]][,n]))))
-  plot.ts(
-    ilo_dynamic_panel_missing[[id_usa]][,n], 
-    ylim = range_i, 
-    col = ligh, 
-    lwd = 0.2,
-    axes = FALSE,
-    ylab = "",
-    xlab = ""
-  )
-  for (i in (1:C)[-id_usa]) {lines(ilo_dynamic_panel_missing[[i]][,n], col = ligh, lwd = 0.2)}
-  lines(ilo_dynamic_panel_missing[[id_pol]][,n], col = dark, lwd = 2)
-  if (n == 1) {
-    text(
-      time_id[4],
-      ilo_dynamic_panel[[id_pol]][34,n],
-      "COL",
-      col = dark,
-      cex = 2
-    )
-  }
-  text(
-    time_id[31],
-    range_i[2] - 0.1 * diff(range_i),
-    var_names[n],
-    col = dark,
-    cex = 2
-  )
-  if (n == 3 || n == 4) {
-    axis(
-      1,
-      labels = c(NA, seq(from = 1995, to = 2020, by = 5), NA),
-      at = c(1991, seq(from = 1995, to = 2020, by = 5), 2024),
-    )
-  }
-}
-```
+<!-- par( -->
+<!--   mfrow = c(2, 2), -->
+<!--   mar = c(0.5, 0.5, 0.5, 0.5), -->
+<!--   oma = c(2, 2, 2, 2) -->
+<!-- ) -->
+<!-- for (n in 1:4) { -->
+<!--   range_i = range(sapply(1:C, \(i)(range(ilo_dynamic_panel[[i]][,n])))) -->
+<!--   plot.ts( -->
+<!--     ilo_dynamic_panel_missing[[id_usa]][,n],  -->
+<!--     ylim = range_i,  -->
+<!--     col = ligh,  -->
+<!--     lwd = 0.2, -->
+<!--     axes = FALSE, -->
+<!--     ylab = "", -->
+<!--     xlab = "" -->
+<!--   ) -->
+<!--   for (i in (1:C)[-id_usa]) {lines(ilo_dynamic_panel_missing[[i]][,n], col = ligh, lwd = 0.2)} -->
+<!--   lines(ilo_dynamic_panel_missing[[id_pol]][,n], col = dark, lwd = 2) -->
+<!--   if (n == 1) { -->
+<!--     text( -->
+<!--       time_id[4], -->
+<!--       ilo_dynamic_panel[[id_pol]][34,n], -->
+<!--       "COL", -->
+<!--       col = dark, -->
+<!--       cex = 2 -->
+<!--     ) -->
+<!--   } -->
+<!--   text( -->
+<!--     time_id[31], -->
+<!--     range_i[2] - 0.1 * diff(range_i), -->
+<!--     var_names[n], -->
+<!--     col = dark, -->
+<!--     cex = 2 -->
+<!--   ) -->
+<!--   if (n == 3 || n == 4) { -->
+<!--     axis( -->
+<!--       1, -->
+<!--       labels = c(NA, seq(from = 1995, to = 2020, by = 5), NA), -->
+<!--       at = c(1991, seq(from = 1995, to = 2020, by = 5), 2024), -->
+<!--     ) -->
+<!--   } -->
+<!-- } -->
+<!-- ``` -->
 
 
 
@@ -258,24 +286,9 @@ for (n in 1:4) {
 
 
 
+
+
 ## modelling and forecasting framework
-
-### forecasting features {style="color:#1A003F;"}
-
-- original non-stationary variables
-- point and density forecasting
-- forecasting for models with exogenous variables
-- restricted forecasting of rates
-- marginal forecasts of labour market indicators
-- expanding-window recursive forecasting
-- forecast performance evaluation 
-- forecast error variance decomposition
-
-
-
-
-
-## the model
 
 ### country-specific vector autoregression {style="color:#1A003F;"}
 
@@ -293,7 +306,7 @@ for (n in 1:4) {
 
 
 
-## the model
+## modelling and forecasting framework
 
 ### global model for the prior mean {style="color:#1A003F;"}
 
@@ -318,7 +331,7 @@ for (n in 1:4) {
 
 
 
-## the model
+## modelling and forecasting framework
 
 ### group modelling {style="color:#1A003F;"}
 
@@ -341,30 +354,84 @@ for (n in 1:4) {
 
 
 
+## modelling and forecasting framework
+
+### featured models {style="color:#1A003F;"}
+
+- country-specific VARs with global prior
+- country-specific VARs with global prior by [Jarociński (2010, JAE)](https://doi.org/10.1002/jae.1082)
+- country-grouping VARs with global prior (fixed or estimated groupings)
+- country-specific VARs with global prior grouping (fixed or estimated groupings)
+- country-specific VARs
+
+### featured model specifications {style="color:#1A003F;"}
+
+- VAR lag order modification
+- exogenous variables
+- constrained forecasting of rates
+- prior hyper-parameters adjustment
+- global prior mean set to pooled estimator by [Zellner, Hong (1989, JOE)](https://doi.org/10.1016/0304-4076(89)90036-5)
 
 
 
 
 
+## modelling and forecasting framework
+
+### forecasting features {style="color:#1A003F;"}
+
+- original non-stationary variables
+- point and density forecasting
+- forecasting for models with exogenous variables
+- restricted forecasting of rates
+- marginal forecasts of labour market indicators
+- expanding-window recursive forecasting
+- forecast performance evaluation 
+- forecast error variance decomposition
 
 
 
 
 
+## modelling and forecasting framework
 
-## the model
-
-### missing observation handling {style="color:#1A003F;"}
-
-- derived model-coherent joint density of missing observations $\mathbf{y}_{c.m}$ given observed data $\mathbf{y}_{c.o}$ and parameters $\mathbf{A}_{c},\boldsymbol\Sigma_c$
+### one-period-ahead conditional predictive density {style="color:#1A003F;"}
 
 \begin{align}
-		p\left(\mathbf{y}_{c.m}\mid \mathbf{y}_{c.o},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
+&\\
+		{\color{lig}p\left(\mathbf{y}_{c.t+1}\mid \mathbf{y}_{c.t},\mathbf{A}_{c},\boldsymbol\Sigma_c\right)} & = N_4\left(\mathbf{A}_{c.1} \mathbf{y}_{c.t} + \mathbf{A}_{d.c}\mathbf{x}_{c.t+1}, \boldsymbol\Sigma_c\right)\\[5ex]
 \end{align}
 		
-- based on model's likelihood function
-- sampled like other parameters during estimation
-- parameter estimation and forecasting embed uncertainty about missing observations
+- implied by the model
+- equivalent to the frequentist predictive density
+
+### joint predictive density {style="color:#1A003F;"}
+
+\begin{align}
+		p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1}\mid \mathbf{Y}_{c.t}\right)
+		&= \int p\left(\mathbf{y}_{c.t+h},\dots,\mathbf{y}_{c.t+1},\mathbf{A}_{c},\boldsymbol\Sigma_c\mid \mathbf{Y}_{c.t}\right)d\left(\mathbf{A}_{c},\boldsymbol\Sigma_c\right)
+\end{align}
+
+- accounts for parameter uncertainty
+- used to generate forecast summaries
+
+
+
+
+
+<!-- ## the model -->
+
+<!-- ### missing observation handling {style="color:#1A003F;"} -->
+
+<!-- - derived model-coherent joint density of missing observations $\mathbf{y}_{c.m}$ given observed data $\mathbf{y}_{c.o}$ and parameters $\mathbf{A}_{c},\boldsymbol\Sigma_c$ -->
+
+<!-- \begin{align} -->
+<!-- 		p\left(\mathbf{y}_{c.m}\mid \mathbf{y}_{c.o},\mathbf{A}_{c},\boldsymbol\Sigma_c\right) -->
+<!-- \end{align} -->
+
+<!-- - based on model's likelihood function -->
+<!-- - sampled like other parameters during estimation -->
+<!-- - parameter estimation and forecasting embed uncertainty about missing observations -->
 
 
 
